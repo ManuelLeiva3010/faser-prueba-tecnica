@@ -83,6 +83,8 @@ export class AppComponent {
 		//Hide the form of create
 		this.isCreating = false;
 		this.notificationService.showInfoToast("Tarea agregada correctamente")
+		this.tareaModel.titulo = ""
+		this.tareaModel.minutos = 0
 
 	}
 
