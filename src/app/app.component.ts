@@ -75,16 +75,30 @@ export class AppComponent {
 	//Create a new work
 	createWork() {
 		//Get the value of length of array 
-		var position = this.tareas.length - 1
-		//Set the last id in array+1
-		this.tareaModel.id = this.tareas[position].id + 1
-		//Save the new Tarea
-		this.tareas.push(new Tarea(this.tareaModel.id, this.tareaModel.titulo, this.tareaModel.minutos, this.tareaModel.favorite))
-		//Hide the form of create
-		this.isCreating = false;
-		this.notificationService.showInfoToast("Tarea agregada correctamente")
-		this.tareaModel.titulo = ""
-		this.tareaModel.minutos = 0
+		//if the value of id is not null
+		if (this.tareas.length > 0) {
+			var position = this.tareas.length - 1
+			//Set the last id in array+1
+			this.tareaModel.id = this.tareas[position].id + 1
+			//Save the new Tarea
+			this.tareas.push(new Tarea(this.tareaModel.id, this.tareaModel.titulo, this.tareaModel.minutos, this.tareaModel.favorite))
+			//Hide the form of create
+			this.isCreating = false;
+			this.notificationService.showInfoToast("Tarea agregada correctamente")
+			this.tareaModel.titulo = ""
+			this.tareaModel.minutos = 0
+			//If cannot find the id we have to set 1
+		} else if (this.tareas.length == 0) {
+			this.tareaModel.id = 1
+			//Save the new Tarea
+			this.tareas.push(new Tarea(this.tareaModel.id, this.tareaModel.titulo, this.tareaModel.minutos, this.tareaModel.favorite))
+			//Hide the form of create
+			this.isCreating = false;
+			this.notificationService.showInfoToast("Tarea agregada correctamente")
+			this.tareaModel.titulo = ""
+			this.tareaModel.minutos = 0
+		}
+
 
 	}
 
