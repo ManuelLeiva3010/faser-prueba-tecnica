@@ -1,7 +1,89 @@
-<div class="container">
+<!-- Get the interface inside to the container -->
+<!-- when we need to see the table -->
+
+<div *ngIf="!isCreating" class="container">
 	<h1>Prueba técnica - Estudio Faser</h1>
 	<h2>Listado de tareas</h2>
 	<ol>
-		<li *ngFor="let tarea of tareas">{{tarea.titulo}} ({{tarea.minutos}} minutos)</li>
+
+		<button (click)="activateForm()" type="button" class="btn btn-success">Agregar tarea</button>
+
+
+		<button (click)="sortAsc()" type="button" class="btn btn-primary">Ordenar ascendente</button>
+		<button (click)="sortDesc()" type="button" class="btn btn-primary">Ordenar descendente</button>
+
+		<!-- Create the table for all the works -->
+		<table class="table">
+			<!-- Add title for data -->
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Tarea</th>
+					<th scope="col">Tiempo</th>
+					<th scope="col">Acciones</th>
+				</tr>
+			</thead>
+
+			<!-- Add data with ngFor -->
+			<tbody>
+				<tr *ngFor="let tarea of tareas; let i = index">
+					<td>{{tarea.id}}</td>
+					<td>{{tarea.titulo}}</td>
+
+					<td>{{tarea.minutos}} minutos</td>
+					<td>
+						<!-- Add system of columns bootstrap -->
+						<div class="row">
+							<div class="col-sm-4">
+								<!-- Button to delete work -->
+
+								<button (click)="delete(i)" type="button"
+									class="btn btn-danger btn-del">Eliminar</button>
+							</div>
+
+							<!-- Button to add favorites -->
+							<!-- When click button, change the state of favorite -->
+							<div class="col-sm-4" (click)="changeFavorite(i)">
+								<svg *ngIf="!tarea.favorite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+									fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+									<path
+										d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+								</svg>
+
+								<svg *ngIf="tarea.favorite" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+									fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+									<path fill-rule="evenodd"
+										d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+								</svg>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</ol>
+
+
+
+</div>
+
+<!-- when we need to create a work -->
+<div *ngIf="isCreating" class="container">
+	<!-- Form to new work -->
+	<form #form="ngForm">
+		<div class="form-group">
+			<label for="titulo">Tarea a realizar</label>
+			<input [(ngModel)]="tareaModel.titulo" name="titulo" type="text" class="form-control" id="titulo"
+				aria-describedby="titulo">
+		</div>
+
+		<div class="form-group">
+			<label for="minutos">Tiempo empleado</label>
+			<input [(ngModel)]="tareaModel.minutos" name="tiempo" type="text" class="form-control" id="minutos">
+			<small id="emailHelp" class="form-text text-muted">En minutos.</small>
+		</div>
+
+		<button (click)="createWork()" class="btn btn-primary">Guardar</button>
+		<button (click)="inactivateForm()" class="btn btn-primary">Cancel</button>
+	</form>
 </div>
