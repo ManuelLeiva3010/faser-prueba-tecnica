@@ -1,4 +1,4 @@
-import { Component, Injectable, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { AppService } from './app.service';
 import { NotificationService } from './services/notification.service';
 import { Tarea } from './tarea';
@@ -82,6 +82,8 @@ export class AppComponent {
 		this.tareas.push(new Tarea(this.tareaModel.id, this.tareaModel.titulo, this.tareaModel.minutos, this.tareaModel.favorite))
 		//Hide the form of create
 		this.isCreating = false;
+		this.notificationService.showInfoToast("Tarea agregada correctamente")
+
 	}
 
 	//Hide the form of create
