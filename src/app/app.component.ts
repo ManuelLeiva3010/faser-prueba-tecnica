@@ -62,23 +62,29 @@ export class AppComponent {
 	sortAsc() {
 		this.tareas.sort((a, b) => a.minutos - b.minutos);
 	}
-
+	//order smallest to smallest
 	sortDesc() {
 		this.tareas.sort((a, b) => b.minutos - a.minutos);
 	}
 
+	//Show the form of create
 	activateForm() {
 		this.isCreating = true;
 	}
 
-
+	//Create a new work
 	createWork() {
+		//Get the value of length of array 
 		var position = this.tareas.length - 1
+		//Set the last id in array+1
 		this.tareaModel.id = this.tareas[position].id + 1
+		//Save the new Tarea
 		this.tareas.push(new Tarea(this.tareaModel.id, this.tareaModel.titulo, this.tareaModel.minutos, this.tareaModel.favorite))
+		//Hide the form of create
 		this.isCreating = false;
 	}
 
+	//Hide the form of create
 	inactivateForm() {
 		this.isCreating = false;
 	}
